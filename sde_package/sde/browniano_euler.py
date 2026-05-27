@@ -9,10 +9,7 @@ class BrownianoEuler:
     def __init__(self, params):
  
         self.params = params
-
-    # ----------------------------------------------------------
     # Método 1: vector de tiempos
-    # ----------------------------------------------------------
 
     def construir_vector_tiempos(self):
    
@@ -29,9 +26,7 @@ class BrownianoEuler:
 
         return tiempos
 
-    # ----------------------------------------------------------
     # Método 2: una trayectoria del Browniano
-    # ----------------------------------------------------------
 
     def simular_browniano(self):
     
@@ -44,29 +39,24 @@ class BrownianoEuler:
         # Lista de incrementos (se pasan al método de Euler)
         lista_delta_B = []
 
-        # Condición inicial B0 = 0  [Documento pág. 1: B0 = 0]
+        # Condición inicial B0 = 0  
         B_anterior = 0.0
         B.append(B_anterior)
 
         # Construir la trayectoria paso a paso
-        # [Documento: Bti = Bti_1 + sqrt(delta_t) * Rand  para i = 1,...,n]
         i = 1
         while i <= n:
 
             # Rand = N(0,1)
-            # [Documento pág. 2: N(0,1) = Rand]
             Rand = random.gauss(0, 1)
 
             # sqrt(delta_t)
-            # [Documento pág. 2: sqrt(delta_ti)]
             raiz_delta_t = math.sqrt(delta_t)
 
             # delta_B = sqrt(delta_t) * Rand
-            # [Documento pág. 2: delta_Bi = sqrt(delta_ti) * Rand]
             delta_B = raiz_delta_t * Rand
 
             # Bti = Bti_1 + delta_B
-            # [Documento pág. 2: Bti = Bti_1 + sqrt(delta_ti) * Rand]
             B_actual = B_anterior + delta_B
 
             lista_delta_B.append(delta_B)
@@ -78,9 +68,7 @@ class BrownianoEuler:
 
         return lista_delta_B, B
 
-    # ----------------------------------------------------------
     # Método 3: una trayectoria de Xt con Euler
-    # ----------------------------------------------------------
 
     def euler_una_trayectoria(self, lista_delta_B):
         a       = self.params.a
@@ -91,45 +79,35 @@ class BrownianoEuler:
         n       = self.params.n
         delta_t = self.params.delta_t
 
-        # Iniciar con la condición inicial  [Documento: Xt0 = X0]
+        # Iniciar con la condición inicial  
         Xt = []
         Xt.append(X0)
 
         Xti_1 = X0
 
-        # Aplicar Euler paso a paso  [Documento: para i = 1, 2, ..., n]
+        # Aplicar Euler paso a paso  
         i = 1
         while i <= n:
 
             # Incremento browniano del paso i
-            # [Documento: delta_Bi = Bti - Bti_1]
             delta_B = lista_delta_B[i - 1]
 
-            # ---- Parte determinista: (a*Xti_1 + b) * delta_t ----
-
-            # Paso 1: a * Xti_1
+            # Parte determinista
             a_por_Xti_1 = a * Xti_1
 
-            # Paso 2: a*Xti_1 + b
             a_por_Xti_1_mas_b = a_por_Xti_1 + b
 
-            # Paso 3: (a*Xti_1 + b) * delta_t
             parte_determinista = a_por_Xti_1_mas_b * delta_t
 
-            # ---- Parte estocástica: (c*Xti_1 + d) * delta_B ----
+            #  Parte estocástica
 
-            # Paso 4: c * Xti_1
             c_por_Xti_1 = c * Xti_1
 
-            # Paso 5: c*Xti_1 + d
             c_por_Xti_1_mas_d = c_por_Xti_1 + d
 
-            # Paso 6: (c*Xti_1 + d) * delta_B
             parte_estocastica = c_por_Xti_1_mas_d * delta_B
 
-            # ---- Fórmula de Euler completa ----
-            # Xti = Xti_1 + parte_determinista + parte_estocastica
-            # [Documento pág. 2]
+            #  Fórmula de Euler completa 
             Xti = Xti_1 + parte_determinista + parte_estocastica
 
             Xt.append(Xti)
@@ -140,9 +118,7 @@ class BrownianoEuler:
 
         return Xt
 
-    # ----------------------------------------------------------
     # Método 4: bucle completo de M trayectorias
-    # ----------------------------------------------------------
 
     def simular_M_trayectorias(self):
         M = self.params.M
@@ -154,10 +130,8 @@ class BrownianoEuler:
         j = 1
         while j <= M:
 
-            # Generar una trayectoria del Browniano
             lista_delta_B, B = self.simular_browniano()
 
-            # Aplicar Euler con esa trayectoria browniana
             trayectoria_Xt = self.euler_una_trayectoria(lista_delta_B)
 
             todas_trayectorias.append(trayectoria_Xt)

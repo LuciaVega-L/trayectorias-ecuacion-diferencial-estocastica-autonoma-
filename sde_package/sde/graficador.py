@@ -17,7 +17,6 @@ class Graficador:
 
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
-        # Título general con los parámetros usados
         fig.suptitle(
             f"SDE Autónoma: dXt = (a·Xt + b)dt + (c·Xt + d)dBt\n"
             f"a={p.a}, b={p.b}, c={p.c}, d={p.d},  "
@@ -25,13 +24,11 @@ class Graficador:
             fontsize=12
         )
 
-        # ---- Gráfica 1: Trayectorias + Valor Medio ----
         ax1.set_title("Trayectorias (azul) y Valor Medio Exacto (rojo)")
         ax1.set_xlabel("t")
         ax1.set_ylabel("Xt")
 
         # Graficar cada trayectoria en azul
-        # [Documento: "trayectorias de un color"]
         j = 0
         while j < p.M:
             ax1.plot(
@@ -44,7 +41,6 @@ class Graficador:
             j = j + 1
 
         # Graficar el valor medio exacto en rojo
-        # [Documento: "valor medio y varianza de otro color"]
         ax1.plot(
             tiempos,
             lista_valor_medio_exacto,
@@ -55,7 +51,7 @@ class Graficador:
         ax1.legend(fontsize=9)
         ax1.grid(True, alpha=0.3)
 
-        # ---- Gráfica 2: Varianza ----
+        #  Gráfica 2: Varianza 
         ax2.set_title("Varianza empírica de Xt")
         ax2.set_xlabel("t")
         ax2.set_ylabel("Var(Xt)")
@@ -72,7 +68,6 @@ class Graficador:
 
         plt.tight_layout()
 
-        # Guardar en la misma carpeta donde esté main.py
         carpeta_raiz = os.path.dirname(os.path.abspath(__file__))
         carpeta_raiz = os.path.join(carpeta_raiz, "..")
         ruta_guardado = os.path.join(carpeta_raiz, "sde_simulacion.png")
