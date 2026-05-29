@@ -18,7 +18,7 @@ class BrownianoEuler:
         i = 0
         while i <= self.params.n:
 
-            ti = i * self.params.delta_t
+            ti = i * self.params.Δt
             tiempos.append(ti)
             i = i + 1
 
@@ -29,63 +29,61 @@ class BrownianoEuler:
     def simular_browniano(self):
     
         n = self.params.n
-        delta_t = self.params.delta_t
+        Δt = self.params.Δt
+        
+        # Guardamos la raíz en una constante antes del bucle para no destruir Δt
+        raiz_Δt = math.sqrt(Δt) 
+        
         B = []
-        lista_delta_B = []
-        BX_timns1 = 0.0
-        B.append(BX_timns1)
+        lista_ΔB = []
+        BX_tᵢ_1_1 = 0.0
+        B.append(BX_tᵢ_1_1)
         i = 1
         while i <= n:
 
             Rand = random.gauss(0, 1)
-            raiz_delta_t = math.sqrt(delta_t)
-            delta_B = raiz_delta_t * Rand
-            B_ti = BX_timns1 + delta_B
+            
+            # Usamos raiz_Δt en lugar de modificar Δt directamente
+            ΔB = raiz_Δt * Rand 
+            Bₜᵢ = BX_tᵢ_1_1 + ΔB
 
-            lista_delta_B.append(delta_B)
-            B.append(B_ti)
+            lista_ΔB.append(ΔB)
+            B.append(Bₜᵢ)
 
-            BX_timns1 = B_ti
+            BX_tᵢ_1_1 = Bₜᵢ
 
             i = i + 1
 
-        return lista_delta_B, B
+        return lista_ΔB, B
 
     # Método 3: una trayectoria de Xt con Euler
 
-    def euler_una_trayectoria(self, lista_delta_B):
+    def euler_una_trayectoria(self, lista_ΔB):
         a       = self.params.a
         b       = self.params.b
         c       = self.params.c
         d       = self.params.d
         X0      = self.params.X0
         n       = self.params.n
-        delta_t = self.params.delta_t
+        Δt = self.params.Δt
 
 
         Xt = []
         Xt.append(X0)
 
-        X_timns1 = X0
+        X_tᵢ_1 = X0
 
         i = 1
         while i <= n:
 
-            delta_B = lista_delta_B[i - 1]
+            ΔB = lista_ΔB[i - 1]
+            X_tᵢ = X_tᵢ_1 + ((a*X_tᵢ_1 + b)*Δt) + ((c*X_tᵢ_1 + d)*ΔB)
 
-            a_por_X_timns1 = a * X_timns1
-            a_por_X_timns1_mas_b = a_por_X_timns1 + b
-            parte_determinista = a_por_X_timns1_mas_b * delta_t
+            
 
-            c_por_X_timns1 = c * X_timns1
-            c_por_X_timns1_mas_d = c_por_X_timns1 + d
-            parte_estocastica = c_por_X_timns1_mas_d * delta_B
+            Xt.append(X_tᵢ)
 
-            Xti = X_timns1 + parte_determinista + parte_estocastica
-
-            Xt.append(Xti)
-
-            X_timns1 = Xti
+            X_tᵢ_1 = X_tᵢ
 
             i = i + 1
 
@@ -104,9 +102,9 @@ class BrownianoEuler:
         while j <= M:
 
 
-            lista_delta_B, B = self.simular_browniano()
+            lista_ΔB, B = self.simular_browniano()
 
-            trayectoria_Xt = self.euler_una_trayectoria(lista_delta_B)
+            trayectoria_Xt = self.euler_una_trayectoria(lista_ΔB)
 
             todas_trayectorias.append(trayectoria_Xt)
 
@@ -116,4 +114,3 @@ class BrownianoEuler:
         print()
 
         return todas_trayectorias
-    
