@@ -37,6 +37,8 @@ class BrownianoEuler:
         delta_t = self.params.delta_t
         B = []
         lista_delta_B = []
+        BX_timns1 = 0.0
+        B.append(BX_timns1)
         i = 1
         while i <= n:
 
