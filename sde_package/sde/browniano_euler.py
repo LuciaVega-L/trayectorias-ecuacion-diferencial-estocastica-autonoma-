@@ -9,10 +9,7 @@ class BrownianoEuler:
     def __init__(self, params):
  
         self.params = params
-
-    # ----------------------------------------------------------
     # Método 1: vector de tiempos
-    # ----------------------------------------------------------
 
     def construir_vector_tiempos(self):
    
@@ -27,9 +24,7 @@ class BrownianoEuler:
 
         return tiempos
 
-    # ----------------------------------------------------------
     # Método 2: una trayectoria del Browniano
-    # ----------------------------------------------------------
 
     def simular_browniano(self):
     
@@ -56,9 +51,7 @@ class BrownianoEuler:
 
         return lista_delta_B, B
 
-    # ----------------------------------------------------------
     # Método 3: una trayectoria de Xt con Euler
-    # ----------------------------------------------------------
 
     def euler_una_trayectoria(self, lista_delta_B):
         a       = self.params.a
@@ -98,9 +91,7 @@ class BrownianoEuler:
 
         return Xt
 
-    # ----------------------------------------------------------
     # Método 4: bucle completo de M trayectorias
-    # ----------------------------------------------------------
 
     def simular_M_trayectorias(self):
         M = self.params.M

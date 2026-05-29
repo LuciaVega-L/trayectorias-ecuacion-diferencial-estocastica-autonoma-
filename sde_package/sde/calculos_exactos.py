@@ -10,9 +10,7 @@ class CalculosExactos:
      
         self.params = params
 
-    # ----------------------------------------------------------
     # Método 1: valor medio exacto en un instante t
-    # ----------------------------------------------------------
 
     def valor_medio_en_t(self, t):
 
@@ -21,7 +19,6 @@ class CalculosExactos:
         X0   = self.params.X0
         mu_t = self.params.mu_t_fijo
 
-        # Caso especial t = 0: E(X0) = X0
         if t == 0.0:
             return X0
 
@@ -43,15 +40,12 @@ class CalculosExactos:
         # [Fórmula: (b/a)*(e^(at) - 1) + X0*e^(at)]
         suma_parentesis = termino_1 + termino_2
 
-        # Paso 7: multiplicar por mu(t)
-        # [Fórmula: (...) * mu(t)]
+        
         E_Xt = suma_parentesis * mu_t
 
         return E_Xt
 
-    # ----------------------------------------------------------
     # Método 2: valor medio en todos los instantes
-    # ----------------------------------------------------------
 
     def calcular_lista_valor_medio(self, tiempos):
         print("  Calculando valor medio exacto...")
@@ -72,9 +66,7 @@ class CalculosExactos:
 
         return lista_valor_medio_exacto
 
-    # ----------------------------------------------------------
     # Método 3: varianza empírica en un paso i
-    # ----------------------------------------------------------
 
     def varianza_empirica_en_paso_i(self, todas_trayectorias, i, media_empirica_i):
        
@@ -99,9 +91,7 @@ class CalculosExactos:
 
         return varianza_i
 
-    # ----------------------------------------------------------
     # Método 4: varianza en todos los pasos
-    # ----------------------------------------------------------
 
     def calcular_lista_varianza(self, todas_trayectorias):
 

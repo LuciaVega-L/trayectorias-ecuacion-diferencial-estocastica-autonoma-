@@ -17,7 +17,6 @@ class Graficador:
 
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
-        # Título general con los parámetros usados
         fig.suptitle(
             f"SDE Autónoma: dXt = (a·Xt + b)dt + (c·Xt + d)dBt\n"
             f"a={p.a}, b={p.b}, c={p.c}, d={p.d},  "
