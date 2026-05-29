@@ -25,27 +25,21 @@ class CalculosExactos:
         if t == 0.0:
             return X0
 
-        # Paso 1: e^(a*t)
         # [Fórmula: e^(at)]
         e_at = math.exp(a * t)
 
-        # Paso 2: e^(a*t) - 1
         # [Fórmula: (e^(at) - 1)]
         e_at_menos_1 = e_at - 1
 
-        # Paso 3: b / a
         # [Fórmula: b/a]
         b_sobre_a = b / a
 
-        # Paso 4: (b/a) * (e^(at) - 1)
         # [Fórmula: (b/a)*(e^(at) - 1)]
         termino_1 = b_sobre_a * e_at_menos_1
 
-        # Paso 5: X0 * e^(a*t)
         # [Fórmula: X0 * e^(at)]
         termino_2 = X0 * e_at
 
-        # Paso 6: suma del paréntesis
         # [Fórmula: (b/a)*(e^(at) - 1) + X0*e^(at)]
         suma_parentesis = termino_1 + termino_2
 
@@ -69,7 +63,7 @@ class CalculosExactos:
 
             t_actual = tiempos[i]
 
-            # Aplicar la fórmula exacta en t_actual
+
             E_Xt_i = self.valor_medio_en_t(t_actual)
 
             lista_valor_medio_exacto.append(E_Xt_i)
@@ -86,16 +80,14 @@ class CalculosExactos:
        
         M = len(todas_trayectorias)
 
-        # Acumulador de la suma de cuadrados
         suma_cuadrados = 0.0
 
         j = 0
         while j < M:
 
-            # Valor de la trayectoria j en el paso i
+
             Xtj_i = todas_trayectorias[j][i]
 
-            # (Xtj_i - media_i)^2
             diferencia = Xtj_i - media_empirica_i
             cuadrado   = diferencia * diferencia
 
@@ -103,7 +95,6 @@ class CalculosExactos:
 
             j = j + 1
 
-        # Dividir por M
         varianza_i = suma_cuadrados / M
 
         return varianza_i
@@ -121,7 +112,6 @@ class CalculosExactos:
         i = 0
         while i <= self.params.n:
 
-            # Calcular la media empírica en el paso i
             suma_media = 0.0
             j = 0
             while j < self.params.M:
@@ -129,7 +119,6 @@ class CalculosExactos:
                 j = j + 1
             media_empirica_i = suma_media / self.params.M
 
-            # Calcular la varianza empírica en el paso i
             varianza_i = self.varianza_empirica_en_paso_i(
                 todas_trayectorias, i, media_empirica_i
             )
