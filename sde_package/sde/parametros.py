@@ -1,41 +1,40 @@
 class ParametrosSDE:
     def __init__(self, a, b, c, d, X0, t_final, n, M):
 
-        # Coeficientes de la SDE  
         self.a = a
         self.b = b
         self.c = c
         self.d = d
 
-        # Condición inicial  
         self.X0 = X0
 
-        # Parámetros del intervalo y la partición
         self.t_final = t_final
         self.n       = n
         self.M       = M
 
-        # Tamaño del paso  
         self.delta_t = t_final / n
 
-        # mu(t) fijo = 1.0 por defecto
-        # Cambiar aquí si el profesor define otra expresión para mu(t)
+
         self.mu_t_fijo = 1.0
 
     def validar(self):
         hay_error = False
 
+
         if self.a == 0.0:
             print("  [ERROR] El coeficiente 'a' no puede ser 0 (división b/a en valor medio).")
             hay_error = True
+
 
         if self.n <= 0:
             print("  [ERROR] n debe ser un entero positivo.")
             hay_error = True
 
+
         if self.M <= 0:
             print("  [ERROR] M debe ser un entero positivo.")
             hay_error = True
+
 
         if self.t_final <= 0.0:
             print("  [ERROR] t_final debe ser positivo.")

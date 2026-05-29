@@ -36,22 +36,18 @@ class MenuEntrada:
         print()
         print("--- Coeficientes de la ecuación ---")
 
-        # Coeficiente a 
         a = self.leer_float(
             "  Ingrese a (coeficiente de Xt en la parte dt): "
         )
 
-        # Coeficiente b 
         b = self.leer_float(
             "  Ingrese b (término independiente en la parte dt): "
         )
 
-        # Coeficiente c 
         c = self.leer_float(
             "  Ingrese c (coeficiente de Xt en la parte dBt): "
         )
 
-        # Coeficiente d 
         d = self.leer_float(
             "  Ingrese d (término independiente en la parte dBt): "
         )
@@ -59,7 +55,6 @@ class MenuEntrada:
         print()
         print("--- Condición inicial ---")
 
-        # Condición inicial 
         X0 = self.leer_float(
             "  Ingrese X0 (condición inicial): "
         )
@@ -67,21 +62,19 @@ class MenuEntrada:
         print()
         print("--- Parámetros de simulación ---")
 
-        # Intervalo 
         t_final = self.leer_float(
             "  Ingrese t_final (extremo derecho del intervalo (0, t)): "
         )
 
-        # Número de pasos 
         n = self.leer_entero_positivo(
             "  Ingrese n (número de subintervalos/pasos): "
         )
 
-        # Número de trayectorias 
         M = self.leer_entero_positivo(
             "  Ingrese M (número de trayectorias a simular): "
         )
 
         print("=" * 60)
+
         params = ParametrosSDE(a, b, c, d, X0, t_final, n, M)
         return params

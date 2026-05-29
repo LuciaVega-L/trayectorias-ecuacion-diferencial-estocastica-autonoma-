@@ -22,18 +22,22 @@ class CalculosExactos:
         if t == 0.0:
             return X0
 
+        # [Fórmula: e^(at)]
         e_at = math.exp(a * t)
 
+        # [Fórmula: (e^(at) - 1)]
         e_at_menos_1 = e_at - 1
 
+        # [Fórmula: b/a]
         b_sobre_a = b / a
 
+        # [Fórmula: (b/a)*(e^(at) - 1)]
         termino_1 = b_sobre_a * e_at_menos_1
 
-      
+        # [Fórmula: X0 * e^(at)]
         termino_2 = X0 * e_at
 
-        
+        # [Fórmula: (b/a)*(e^(at) - 1) + X0*e^(at)]
         suma_parentesis = termino_1 + termino_2
 
         
@@ -53,7 +57,7 @@ class CalculosExactos:
 
             t_actual = tiempos[i]
 
-            
+
             E_Xt_i = self.valor_medio_en_t(t_actual)
 
             lista_valor_medio_exacto.append(E_Xt_i)
@@ -72,6 +76,7 @@ class CalculosExactos:
 
         j = 0
         while j < M:
+
 
             Xtj_i = todas_trayectorias[j][i]
 
@@ -97,7 +102,6 @@ class CalculosExactos:
         i = 0
         while i <= self.params.n:
 
-            # Calcular la media empírica en el paso i
             suma_media = 0.0
             j = 0
             while j < self.params.M:
@@ -105,7 +109,6 @@ class CalculosExactos:
                 j = j + 1
             media_empirica_i = suma_media / self.params.M
 
-            # Calcular la varianza empírica en el paso i
             varianza_i = self.varianza_empirica_en_paso_i(
                 todas_trayectorias, i, media_empirica_i
             )
