@@ -17,32 +17,13 @@ class CalculosExactos:
         a    = self.params.a
         b    = self.params.b
         X0   = self.params.X0
-        mu_t = self.params.mu_t_fijo
+        μₜ = self.params.μₜ_fijo
 
         if t == 0.0:
             return X0
-
-        # [Fórmula: e^(at)]
-        e_at = math.exp(a * t)
-
-        # [Fórmula: (e^(at) - 1)]
-        e_at_menos_1 = e_at - 1
-
-        # [Fórmula: b/a]
-        b_sobre_a = b / a
-
-        # [Fórmula: (b/a)*(e^(at) - 1)]
-        termino_1 = b_sobre_a * e_at_menos_1
-
-        # [Fórmula: X0 * e^(at)]
-        termino_2 = X0 * e_at
-
+        eᵃᵗ = math.exp(a * t)
         # [Fórmula: (b/a)*(e^(at) - 1) + X0*e^(at)]
-        suma_parentesis = termino_1 + termino_2
-
-        
-        E_Xt = suma_parentesis * mu_t
-
+        E_Xt = (b/a)*( (eᵃᵗ-1) + X0*eᵃᵗ )*μₜ
         return E_Xt
 
     # Método 2: valor medio en todos los instantes
@@ -58,9 +39,9 @@ class CalculosExactos:
             t_actual = tiempos[i]
 
 
-            E_Xt_i = self.valor_medio_en_t(t_actual)
+            EX_tᵢ = self.valor_medio_en_t(t_actual)
 
-            lista_valor_medio_exacto.append(E_Xt_i)
+            lista_valor_medio_exacto.append(EX_tᵢ)
 
             i = i + 1
 

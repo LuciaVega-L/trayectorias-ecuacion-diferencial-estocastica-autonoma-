@@ -12,10 +12,10 @@ class ParametrosSDE:
         self.n       = n
         self.M       = M
 
-        self.delta_t = t_final / n
+        self.Δt = t_final / n
 
 
-        self.mu_t_fijo = 1.0
+        self.μₜ_fijo = 1.0
 
     def validar(self):
         hay_error = False
@@ -50,7 +50,7 @@ class ParametrosSDE:
         print(f"    X0       = {self.X0}")
         print(f"    Intervalo: (0, {self.t_final})")
         print(f"    n        = {self.n}  →  "
-              f"delta_t = {self.t_final}/{self.n} = {self.delta_t}")
+              f"Δt = {self.t_final}/{self.n} = {self.Δt}")
         print(f"    M        = {self.M} trayectorias")
-        print(f"    mu(t)    = {self.mu_t_fijo} (fijo)")
+        print(f"    mu(t)    = {self.μₜ_fijo} (fijo)")
         print()
