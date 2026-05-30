@@ -23,7 +23,7 @@ class CalculosExactos:
             return X0
         eᵃᵗ = math.exp(a * t)
         # [Fórmula: (b/a)*(e^(at) - 1) + X0*e^(at)]
-        E_Xt = (b/a)*( (eᵃᵗ-1) + X0*eᵃᵗ )*μₜ
+        E_Xt = (b/a)*( ((eᵃᵗ)-1)) + ((X0)*(eᵃᵗ ))*μₜ
         return E_Xt
 
     # Método 2: valor medio en todos los instantes
