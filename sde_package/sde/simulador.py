@@ -5,7 +5,6 @@ from sde.graficador       import Graficador
 
 
 class SimuladorSDE:
-    
 
     def ejecutar(self):
 
@@ -27,14 +26,12 @@ class SimuladorSDE:
         calculos = CalculosExactos(params)
 
         lista_valor_medio_exacto = calculos.calcular_lista_valor_medio(tiempos)
-        lista_varianza           = calculos.calcular_lista_varianza(todas_trayectorias)
 
         graficador = Graficador(params)
         graficador.graficar(
             tiempos,
             todas_trayectorias,
-            lista_valor_medio_exacto,
-            lista_varianza
+            lista_valor_medio_exacto
         )
 
         print()

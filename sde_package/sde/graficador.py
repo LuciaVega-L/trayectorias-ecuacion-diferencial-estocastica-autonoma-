@@ -5,17 +5,17 @@ from sde.parametros import ParametrosSDE
 
 
 class Graficador:
+
     def __init__(self, params):
-       
+
         self.params = params
 
-    def graficar(self, tiempos, todas_trayectorias,
-                 lista_valor_medio_exacto, lista_varianza):
-       
-        p = self.params
-        print("  Generando gráficas...")
+    def graficar(self, tiempos, todas_trayectorias, lista_valor_medio_exacto):
 
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
+        p = self.params
+        print("  Generando gráfica...")
+
+        fig, ax1 = plt.subplots(1, 1, figsize=(12, 6))
 
         fig.suptitle(
             f"SDE Autónoma: dXt = (a·Xt + b)dt + (c·Xt + d)dBt\n"
@@ -28,7 +28,6 @@ class Graficador:
         ax1.set_xlabel("t")
         ax1.set_ylabel("Xt")
 
-
         j = 0
         while j < p.M:
             ax1.plot(
@@ -40,7 +39,6 @@ class Graficador:
             )
             j = j + 1
 
-
         ax1.plot(
             tiempos,
             lista_valor_medio_exacto,
@@ -51,26 +49,10 @@ class Graficador:
         ax1.legend(fontsize=9)
         ax1.grid(True, alpha=0.3)
 
-
-        ax2.set_title("Varianza empírica de Xt")
-        ax2.set_xlabel("t")
-        ax2.set_ylabel("Var(Xt)")
-
-        ax2.plot(
-            tiempos,
-            lista_varianza,
-            color="green",
-            linewidth=2.5,
-            label="Var(Xt) empírica"
-        )
-        ax2.legend(fontsize=9)
-        ax2.grid(True, alpha=0.3)
-
         plt.tight_layout()
 
-
-        carpeta_raiz = os.path.dirname(os.path.abspath(__file__))
-        carpeta_raiz = os.path.join(carpeta_raiz, "..")
+        carpeta_raiz  = os.path.dirname(os.path.abspath(__file__))
+        carpeta_raiz  = os.path.join(carpeta_raiz, "..")
         ruta_guardado = os.path.join(carpeta_raiz, "sde_simulacion.png")
         ruta_guardado = os.path.normpath(ruta_guardado)
 
