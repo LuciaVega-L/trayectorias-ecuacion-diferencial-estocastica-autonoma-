@@ -1,4 +1,3 @@
-
 import math
 
 from sde.parametros import ParametrosSDE
@@ -38,7 +37,6 @@ class CalculosExactos:
 
             t_actual = tiempos[i]
 
-
             EX_tᵢ = self.valor_medio_en_t(t_actual)
 
             lista_valor_medio_exacto.append(EX_tᵢ)
@@ -47,55 +45,57 @@ class CalculosExactos:
 
         return lista_valor_medio_exacto
 
-    # Método 3: varianza empírica en un paso i
+    # Método 3: varianza exacta en todos los pasos
+    # Var(Xt) = E[Xt2]  -  (E[Xt])²
+    #           └─ 2do Momento ─┘   └─ Media² ─┘
 
-    def varianza_empirica_en_paso_i(self, todas_trayectorias, i, media_empirica_i):
-       
-        M = len(todas_trayectorias)
+    def calcular_lista_varianza(self, tiempos, lista_valor_medio_exacto):
 
-        suma_cuadrados = 0.0
+        print("  Calculando varianza exacta  Var(Xt) = E[Xt2] - (E[Xt])² ...")
 
-        j = 0
-        while j < M:
+        lista_2do_momento = []
+        lista_varianza    = []
 
+        a  = self.params.a
+        b  = self.params.b
+        c  = self.params.c
+        d  = self.params.d
+        X0 = self.params.X0
+        Δt = self.params.Δt
 
-            Xtj_i = todas_trayectorias[j][i]
-
-            diferencia = Xtj_i - media_empirica_i
-            cuadrado   = diferencia * diferencia
-
-            suma_cuadrados = suma_cuadrados + cuadrado
-
-            j = j + 1
-
-        varianza_i = suma_cuadrados / M
-
-        return varianza_i
-
-    # Método 4: varianza en todos los pasos
-
-    def calcular_lista_varianza(self, todas_trayectorias):
-
-        print("  Calculando varianza empírica...")
-
-        lista_varianza = []
+        # Integración Euler del EDO del 2do momento paso a paso
+        EX2_tᵢ = X0 * X0
+        lista_2do_momento.append(EX2_tᵢ)
 
         i = 0
-        while i <= self.params.n:
+        while i < self.params.n:
 
-            suma_media = 0.0
-            j = 0
-            while j < self.params.M:
-                suma_media = suma_media + todas_trayectorias[j][i]
-                j = j + 1
-            media_empirica_i = suma_media / self.params.M
+            EX_tᵢ = lista_valor_medio_exacto[i]
 
-            varianza_i = self.varianza_empirica_en_paso_i(
-                todas_trayectorias, i, media_empirica_i
+            # d/dt E[Xt2] = (2a + c²)·E[Xt2] + 2(b + c·d)·E[Xt] + d²
+            derivada_EX2_tᵢ = (
+                (2*a + c*c) * EX2_tᵢ
+                + 2*(b + c*d) * EX_tᵢ
+                + d*d
             )
 
-            lista_varianza.append(varianza_i)
+            EX2_tᵢ = EX2_tᵢ + derivada_EX2_tᵢ * Δt
+
+            lista_2do_momento.append(EX2_tᵢ)
 
             i = i + 1
 
-        return lista_varianza
+        # Var(Xt) = E[Xt2] - (E[Xt])²
+        i = 0
+        while i <= self.params.n:
+
+            E_Xt2         = lista_2do_momento[i]
+            media_al_cuad = lista_valor_medio_exacto[i] ** 2
+
+            Var_Xtᵢ = E_Xt2 - media_al_cuad
+
+            lista_varianza.append(Var_Xtᵢ)
+
+            i = i + 1
+
+        return lista_2do_momento, lista_varianza
