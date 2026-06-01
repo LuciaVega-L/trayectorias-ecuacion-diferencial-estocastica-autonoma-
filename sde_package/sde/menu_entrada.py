@@ -15,7 +15,7 @@ if sys.platform == "win32":
             pass
 
 
-ctk.set_appearance_mode("dark")
+ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("blue")
 
 
@@ -29,15 +29,18 @@ class MenuEntrada:
         root.resizable(True, True)   # redimensionable para pantallas pequeñas
 
         # ── Paleta ────────────────────────────────────────────────────────────
-        C_BG      = "#0F0F13"
-        C_CARD    = "#18181F"
-        C_BORDER  = "#2A2A35"
-        C_ACCENT  = "#4F6EF7"
-        C_ACCENT2 = "#3A55D4"
-        C_TEXT    = "#E8E8F0"
-        C_MUTED   = "#6B6B80"
-        C_ENTRY   = "#1E1E28"
-        C_ERROR   = "#F75A5A"
+        C_BG      = "#F5F7FA"    # fondo principal
+        C_CARD    = "#FFFFFF"    # tarjetas blancas
+        C_BORDER  = "#D9DEE7"    # bordes suaves
+
+        C_ACCENT  = "#2563EB"    # azul principal
+        C_ACCENT2 = "#1D4ED8"    # azul hover
+
+        C_TEXT    = "#1F2937"    # texto oscuro
+        C_MUTED   = "#6B7280"    # texto secundario
+
+        C_ENTRY   = "#F9FAFB"    # cajas de texto
+        C_ERROR   = "#DC2626"    # rojo error
 
         FONT_TITLE = ctk.CTkFont(family="Segoe UI", size=20, weight="bold")
         FONT_SUB   = ctk.CTkFont(family="Segoe UI", size=11)
